@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="myarray">
+        <item >Nguyễn Văn A</item>
+        <item >Trần Văn B</item>
+        <item >Dương Văn C</item>
+        <item >Thiều Trọng Thịnh</item>
+        <item >Cao Văn San</item>
+    </string-array>
+    
+</resources>
