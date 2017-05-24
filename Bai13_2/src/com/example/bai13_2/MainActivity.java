@@ -1,26 +1,69 @@
 package com.example.bai13_2;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
 import android.widget.*;
 
 public class MainActivity extends Activity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        EditText txtten=(EditText) findViewById(R.id.txtTen);
-        TextView
-    }
+ EditText txtten;
+ TextView txtchon;
+ Button btn;
+ ListView lv;
+ ArrayList<String>arrList=null;
+ ArrayAdapter<String> adapter=null;
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_main);
+ 
+ txtten=(EditText) findViewById(R.id.txtTen);
+ txtchon=(TextView) findViewById(R.id.txtselection);
+ 
+ lv=(ListView) findViewById(R.id.lvperson);
+ //1. Tạo ArrayList object
+ arrList=new ArrayList<String>();
+ //2. Gán Data Source (ArrayList object) vào ArrayAdapter
+ adapter=new ArrayAdapter<String>
+ (this, android.R.layout.simple_list_item_1,arrList);
+ //3. gán Adapter vào ListView
+ lv.setAdapter(adapter);
+ 
+ btn=(Button) findViewById(R.id.btnNhap);
+ //4. Xử lý sự kiện nhấn nút Nhập
+ btn.setOnClickListener(new View.OnClickListener() {
+ public void onClick(View arg0) {
+ arrList.add(txtten.getText()+"");
+ adapter.notifyDataSetChanged();
+ }
+ });
+ //5. Xử lý sự kiện chọn một phần tử trong ListView
+ lv.setOnItemClickListener(new AdapterView
+ .OnItemClickListener() {
+ public void onItemClick(
+ AdapterView<?> arg0,View arg1,
+ int arg2,long arg3) {
+ 
+ txtchon.setText("position : "+ arg2+
+ "; value ="+arrList.get(arg2));
+ }
+ });
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    
+ lv.setOnItemLongClickListener(new AdapterView
+ .OnItemLongClickListener() {
+ @Override
+ public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+ int arg2, long arg3) {
+ arrList.remove(arg2);
+ adapter.notifyDataSetChanged();
+ return false;
+ }
+ });
+ }
 }
+
+   
